@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Field;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,28 +19,33 @@ public class MainActivity extends AppCompatActivity {
 
         //selecciono el main layout
         LinearLayout principal = findViewById(R.id.botones);
+        Field[] listaCanciones = R.raw.class.getFields();
+        for(int i=0;i<listaCanciones.length;i++) {
+            //creamos un boton por codigo y lo añadimos a la pantalla principal
+            Button b = new Button(this);
+            b.setText(listaCanciones[i].getName());
+            b.setTextColor(Color.WHITE);
+            b.setBackgroundColor(Color.BLUE);
+            b.setAllCaps(false); //todas las letras del boton en minúscula
+            b.setTag(listaCanciones[i].getName());
+            //listaCanciones[i]
+            b.setId(i);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sonido(view);
+                    //Button b2 = (Button)  findViewById(view.getId());
+                    //sonido(b2.getTag().toString());
+                }
+            });
+            b.setTag("1");
 
-        //creamos un boton por codigo y lo añadimos a la pantalla principal
-        Button b=new Button(this);
-        b.setText("cancion1");
-        b.setTextColor(Color.WHITE);
-        b.setBackgroundColor(Color.BLUE);
-        b.setAllCaps(false); //todas las letras del boton en minúscula
-        b.getTag(1);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Button b2 = (Button)  findViewById(view.getId());
-                sonido(b2.getTag().toString());
-            }
-        });
-        b.setTag("1");
-
-        //añadimos el boton al layout
-        principal.addView(b);
+            //añadimos el boton al layout
+            principal.addView(b);
+        }
     }
 
-    public void sonido(){
-    Log.i("etiqueta: ", _etiqueta);
+    public void sonido(String _etiqueta){
+    Log.i("etiqueta", _etiqueta);
     }
 }
