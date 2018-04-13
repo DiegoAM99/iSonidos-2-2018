@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void sonido(String _etiqueta){
-    Log.i("etiqueta", _etiqueta);
+    public void sonido(View view){
+    //Log.i("etiqueta", View view);
     }
 }
