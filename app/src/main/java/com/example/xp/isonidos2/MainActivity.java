@@ -125,11 +125,16 @@ public class MainActivity extends AppCompatActivity {
         b.setLayoutParams(parametrosBotones);
         b.setText(_listaCanciones[i].getName());
         b.setTextColor(Color.WHITE);
+        b.setTextSize(10);
         b.setBackgroundColor(Color.BLUE);
-        b.setAllCaps(false); //todas las letras del botón en minúscula
+        b.setAllCaps(true); //todas las letras del botón en mayúscula/minúscula
         int id = this.getResources().getIdentifier(_listaCanciones[i].getName(), "raw", this.getPackageName());
-        b.setTag(id);
+        String nombreLargo =  _listaCanciones[i].getName();
 
+        if (nombreLargo!= null && nombreLargo.substring(0,2).contains("v_")) {
+            b.setBackgroundColor(Color.rgb(255,140,0));
+        }
+        b.setTag(id);
         b.setId(i+50);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
